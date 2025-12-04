@@ -20,7 +20,7 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "appId": "com.facturel.app", 
+    "appId": "com.facturel.app",
     "productName": "Facturel",
     "directories": {
       "output": "dist"
@@ -28,7 +28,7 @@
     "files": [
       "build/**/*",
       "public/electron.js",
-      "public/preload.js", 
+      "public/preload.js",
       "public/database.js",
       "node_modules/**/*",
       "!node_modules/.cache",
@@ -48,7 +48,7 @@
     "electron-is-dev": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^0.0.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "@types/uuid": "^9.0.0",
     "autoprefixer": "^10.4.0",
     "concurrently": "^8.2.0",
-    "electron": "^27.0.0",
+    "electron": "^39.2.5",
     "electron-builder": "^24.0.0",
     "electron-rebuild": "^3.2.9",
     "eslint": "^8.0.0",
