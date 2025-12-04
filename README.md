@@ -33,12 +33,17 @@ A privacy-focused, local-only bill management application built with React and E
 
 ## Development Commands
 
-- `npm run dev` - Start development mode with hot reload
-- `npm run build` - Build React app for production
-- `npm run build-electron` - Package Electron app for distribution
-- `npm run test` - Run tests
-- `npm run lint` - Check code quality
-- `npm run format` - Format code with Prettier
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development mode with hot reload |
+| `npm run build` | Build React app for production |
+| `npm run build-electron` | Package Electron app for current platform |
+| `npm run build-mac` | Build macOS app (.dmg) |
+| `npm run build-win` | Build Windows app (.exe) |
+| `npm run build-all` | Build for both macOS and Windows |
+| `npm run test` | Run tests |
+| `npm run lint` | Check code quality |
+| `npm run format` | Format code with Prettier |
 
 ## Project Structure
 
@@ -75,17 +80,45 @@ src/
 
 ## Building for Distribution
 
-The app can be packaged for macOS and Windows:
+### Local Builds
+
+Build for your current platform:
 
 ```bash
 npm run build-electron
 ```
 
+Build for a specific platform:
+
+```bash
+npm run build-mac    # macOS (.dmg)
+npm run build-win    # Windows (.exe) - requires Wine on macOS
+npm run build-all    # Both platforms
+```
+
 Built packages will be available in the `dist/` directory.
+
+### Automated Builds (GitHub Actions)
+
+The repository includes a GitHub Actions workflow that builds for both macOS and Windows on native runners. This is the recommended way to create release builds since native modules (like better-sqlite3) compile correctly for each platform.
+
+To trigger a build:
+
+1. **Tag a release:**
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+2. **Or manually trigger** from the [Actions tab](../../actions) on GitHub
+
+Build artifacts are uploaded and downloadable from the workflow run.
 
 ## Contributing
 
-1. Follow the existing code style and patterns
-2. Use Tailwind utility classes for styling
-3. Maintain the privacy-first, local-only approach
-4. Test thoroughly before submitting changes
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+
+- Setting up your development environment
+- Code style and conventions
+- Submitting pull requests
+- Reporting issues
