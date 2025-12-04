@@ -29,3 +29,8 @@
   - Builds on both macOS and Windows runners in parallel
   - Compiles native modules (better-sqlite3) correctly for each platform
   - Uploads .dmg, .zip, and .exe artifacts to the workflow run
+
+
+## Notes
+- The *claude* actions require correct reference to ANTHROPIC_API_KEY to be set as a repo secret.  Alternative is to use CLAUDE_CODE_OAUTH_TOKEN
+- There may be additional Actions set up in GitHub, such as Dependabot Updates and CodeQL that are not managed in code
