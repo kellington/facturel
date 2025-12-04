@@ -120,6 +120,9 @@ Downloaded macOS builds are not code-signed. macOS may show "app is damaged" whe
 
 ```bash
 xattr -cr /path/to/Facturel.app
+
+e.g. 
+xattr -cr /Applications/Facturel.app
 ```
 
 Or right-click the app, select "Open", and confirm in the dialog.
