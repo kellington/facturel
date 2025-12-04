@@ -1,0 +1,78 @@
+{
+  "name": "facturel",
+  "version": "1.0.0",
+  "description": "Local Bill Management App - Privacy-focused bill tracking without cloud integration",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"npm run dev-react\" \"wait-on http://localhost:3000 && electron . --no-sandbox\"",
+    "dev-react": "react-scripts start",
+    "dev-electron": "wait-on http://localhost:3000 && electron . --no-sandbox",
+    "build": "react-scripts build",
+    "build-electron": "npm run build && electron-builder",
+    "test": "react-scripts test",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md}",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.facturel.app", 
+    "productName": "Facturel",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "public/electron.js",
+      "public/preload.js", 
+      "public/database.js",
+      "node_modules/**/*",
+      "!node_modules/.cache",
+      "!**/*.map"
+    ],
+    "mac": {
+      "category": "public.app-category.finance"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "author": "Rob Kellington",
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "date-fns": "^2.30.0",
+    "electron-is-dev": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/uuid": "^9.0.0",
+    "autoprefixer": "^10.4.0",
+    "concurrently": "^8.2.0",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.0.0",
+    "electron-rebuild": "^3.2.9",
+    "eslint": "^8.0.0",
+    "postcss": "^8.4.0",
+    "prettier": "^3.0.0",
+    "tailwindcss": "^3.3.0",
+    "wait-on": "^7.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
