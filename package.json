@@ -57,7 +57,7 @@
     "@types/uuid": "^9.0.0",
     "autoprefixer": "^10.4.0",
     "concurrently": "^8.2.0",
-    "electron": "^27.0.0",
+    "electron": "^35.7.5",
     "electron-builder": "^24.0.0",
     "electron-rebuild": "^3.2.9",
     "eslint": "^8.0.0",
