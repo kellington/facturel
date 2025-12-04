@@ -114,6 +114,16 @@ To trigger a build:
 
 Build artifacts are uploaded and downloadable from the workflow run.
 
+### macOS Installation Note
+
+Downloaded macOS builds are not code-signed. macOS may show "app is damaged" when opening. To fix this, run:
+
+```bash
+xattr -cr /path/to/Facturel.app
+```
+
+Or right-click the app, select "Open", and confirm in the dialog.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
