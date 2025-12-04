@@ -1,8 +1,8 @@
-You are an AI assistant that creates well-structured GitHub issues for the BI Service Desk project.
+You are an AI assistant that creates well-structured GitHub issues for the Facturel project.
 
 ## Defaults
-- **Repo:** https://github.com/skyideas/biservicedesk
-- **Project:** https://github.com/orgs/skyideas/projects/2/views/1
+- **Repo:** https://github.com/kellington/facturel
+- **Project:** https://github.com/users/kellington/projects/1/views/1
 
 ## Feature Description
 $ARGUMENTS
@@ -26,7 +26,7 @@ $ARGUMENTS
 ### Available Milestones
 | Milestone | Description |
 |-----------|-------------|
-| `Code Review: Critical Blockers` | Phase 1A - Must fix before production |
+| None | None |
 | `Code Review: Test Suite` | Phase 1B - Test reliability improvements |
 | `Code Review: Quality` | Phase 1C - Code quality improvements |
 | `Phase 2 Prep: Foundation` | Phase 2A - Critical planning work |
@@ -154,49 +154,72 @@ gh issue view <issue_number>
 ```bash
 # Create bug issue
 gh issue create \
-  --title "Fix Docker Compose CONFIG_DIR environment variable" \
-  --label "type: bug" \
+  --title "Add Settings menu to configure SQLite database location" \
+  --label "type: feature" \
   --body "$(cat <<'EOF'
 ## Summary
 
-Docker Compose fails to start the backend container because the `CONFIG_DIR` environment variable is missing.
+Add a Settings menu item in the Electron app menu bar that allows users to configure the location of the SQLite database storing their data. This gives users control over where their data is stored for backup, portability, or organizational purposes.
 
-## Problem
+## Motivation / Problem
 
-**Current State:**
-- `docker-compose.yml` does not define `CONFIG_DIR`
-- `backend/app/main.py` treats `CONFIG_DIR` as mandatory
-- Result: Backend container crashes on startup
+Currently, the SQLite database is stored in a fixed location (the app's default data directory). Users may want to:
+- Store data on a specific drive or partition
+- Use a cloud-synced folder for backup purposes
+- Keep data in a location they control for easier backup/restore
+- Move data when migrating to a new machine
 
-**Impact:**
-- Cannot test locally with Docker Compose
-- Cannot deploy to production via Docker
+## Proposed Solution
 
-## Solution
+### 1. Add Settings Menu to Electron Menu Bar
+Add a "Settings" or "Preferences" menu item in the application menu that opens a settings dialog.
 
-Add to docker-compose.yml:
-```yaml
-backend:
-  environment:
-    CONFIG_DIR: /config
-  volumes:
-    - ./config:/config
-```
+### 2. Database Location Configuration
+The settings dialog should include:
+- Display of current database location
+- "Change Location..." button to browse and select a new folder
+- "Reset to Default" button to restore the original default location
+- Confirmation dialog before making changes
+
+### 3. Data Migration
+When changing the database location:
+- Copy existing database file to the new location
+- Validate the new path is writable before copying
+- Only switch to new location after successful copy
+- Provide clear success/error feedback to user
+
+### 4. Persistence
+- Store the custom database path in a separate config file (not in the database itself)
+- Load the configured path on app startup
+- Fall back to default location if configured path is inaccessible
 
 ## Acceptance Criteria
 
-- [ ] `CONFIG_DIR=/config` added to docker-compose.yml
-- [ ] `docker-compose up` starts without errors
-- [ ] Backend health check returns 200
+- [ ] Settings menu item appears in Electron app menu bar
+- [ ] Settings dialog displays current database location
+- [ ] User can browse and select a new database folder
+- [ ] Existing data is copied to new location when changed
+- [ ] "Reset to Default" option restores original location
+- [ ] Custom location persists across app restarts
+- [ ] Error handling for invalid/inaccessible paths
+- [ ] Confirmation dialog before changing location
+- [ ] Success/error feedback after location change
+
+## Technical Notes
+
+- Use Electron's `dialog.showOpenDialog()` for folder selection
+- Store path preference in electron-store or a simple JSON config file
+- Use Electron's `app.getPath('userData')` for default location
+- Consider using `fs.copyFile()` for database migration
+- Ensure database connection is properly closed before copying
 
 ## References
 
-- Source: PHASE1-CODE_REVIEW_SUMMARY.md
-- Files: `docker-compose.yml`
+- Related: Privacy-first local storage architecture
+- Files: `src/main.js`, `src/database.js`, `src/preload.js`  
 EOF
 )"
 
-# Add priority and milestone
-gh issue edit 33 --add-label "priority: high"
-gh issue edit 33 --milestone "Code Review: Critical Blockers"
+# Add priority and milestone if determined
+gh issue edit 01 --add-label "priority: high"
 ```
