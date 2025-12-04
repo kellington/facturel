@@ -78,6 +78,12 @@ src/
 - Database location: User's app data directory
 - Optional CSV export for manual backup
 
+## Code Quality
+
+- As part of automated CI/CD, GitHub Actions are run
+- These include built-in checks such as Dependabot and CodeQL 
+- There is also a Claude code review - that would require Anthropic credentials
+
 ## Building for Distribution
 
 ### Local Builds
