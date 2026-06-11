@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>facturel — Project Status · 2026-06-11</title>
+<style>
+  :root{
+    --slate:#1e293b; --teal:#0d9488; --amber:#f59e0b;
+    --green:#16a34a; --red:#dc2626; --bg:#f9fafb;
+    --border:#e5e7eb; --muted:#64748b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--slate);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px; margin:0 auto; padding:24px 20px 60px;}
+
+  /* Header */
+  .header{
+    background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);
+    color:#fff; border-radius:14px; padding:28px 30px;
+    box-shadow:0 4px 18px rgba(15,23,42,.18);
+  }
+  .header h1{margin:0; font-size:32px; letter-spacing:-.5px; font-weight:700;
+    display:flex; align-items:center; gap:12px;}
+  .lock{display:inline-flex;}
+  .tagline{margin:8px 0 16px; color:#cbd5e1; font-size:15px;}
+  .badges{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  .badge{
+    font-size:12px; font-weight:600; padding:5px 11px; border-radius:999px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); color:#e2e8f0;
+  }
+  .badge.teal{background:rgba(13,148,136,.22); border-color:rgba(13,148,136,.5); color:#5eead4;}
+  .badge.grey{background:rgba(148,163,184,.16); border-color:rgba(148,163,184,.35); color:#cbd5e1;}
+  .badge.date{margin-left:auto; background:transparent; border-color:rgba(255,255,255,.2);}
+
+  /* Pills */
+  .pills{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 8px;}
+  .pill{
+    background:#fff; border:1px solid var(--border); border-radius:10px;
+    padding:10px 14px; font-size:13px; box-shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  .pill .k{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.6px;
+    color:var(--muted); font-weight:700; margin-bottom:2px;}
+  .pill .v{font-weight:600; color:var(--slate);}
+
+  /* Cards / sections */
+  section{margin-top:26px;}
+  h2{font-size:18px; margin:0 0 12px; display:flex; align-items:center; gap:9px; letter-spacing:-.2px;}
+  h2 .dot{width:9px; height:9px; border-radius:50%; background:var(--teal); display:inline-block;}
+  .card{
+    background:#fff; border:1px solid var(--border); border-radius:12px;
+    padding:20px 22px; box-shadow:0 1px 3px rgba(16,24,40,.05);
+  }
+  .card p{margin:0 0 10px;} .card p:last-child{margin-bottom:0;}
+  .muted{color:var(--muted);}
+
+  .alert{
+    background:#fffbeb; border:1px solid #fde68a; border-left:4px solid var(--amber);
+    border-radius:8px; padding:10px 14px; font-size:13.5px; color:#92400e; margin-top:12px;
+  }
+
+  /* Two columns */
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .col{background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+    box-shadow:0 1px 3px rgba(16,24,40,.05);}
+  .col.exists{border-left:4px solid var(--teal);}
+  .col.missing{border-left:4px solid var(--amber);}
+  .col h3{margin:0 0 12px; font-size:14px; text-transform:uppercase; letter-spacing:.5px;}
+  .col.exists h3{color:var(--teal);}
+  .col.missing h3{color:#b45309;}
+  .col ul{margin:0; padding:0; list-style:none;}
+  .col li{padding:7px 0; border-bottom:1px dashed var(--border); font-size:13.5px;}
+  .col li:last-child{border-bottom:none;}
+  .col li code{background:#f1f5f9; padding:1px 6px; border-radius:5px; font-size:12.5px; color:var(--slate);}
+  .col li .d{color:var(--muted); font-size:12.5px;}
+  .tag{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px;
+    padding:2px 7px; border-radius:5px; margin-left:6px; vertical-align:middle;}
+  .tag.scaffold{background:#fef3c7; color:#92400e;}
+
+  /* Workflow steps */
+  .steps{counter-reset:step; margin:0; padding:0; list-style:none;}
+  .steps li{
+    counter-increment:step; position:relative; padding:9px 0 9px 42px; font-size:14px;
+    border-bottom:1px solid var(--border);
+  }
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:7px;
+    width:26px; height:26px; border-radius:50%; background:var(--teal); color:#fff;
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* Backlog */
+  .backlog{counter-reset:bl; margin:0; padding:0; list-style:none;}
+  .backlog li{
+    counter-increment:bl; position:relative; padding:12px 16px 12px 50px; margin-bottom:8px;
+    background:#fff; border:1px solid var(--border); border-radius:10px; font-size:14px;
+  }
+  .backlog li::before{
+    content:counter(bl); position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:24px; height:24px; border-radius:7px; background:#e2e8f0; color:var(--slate);
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
+  .backlog li.top{border:1px solid #fcd34d; background:#fffbeb;}
+  .backlog li.top::before{background:var(--amber); color:#fff;}
+  .backlog li strong{color:var(--slate);}
+  .backlog li .why{display:block; color:var(--muted); font-size:13px; margin-top:2px;}
+
+  /* Next session */
+  .next{
+    background:#fffbeb; border:1px solid #fde68a; border-left:5px solid var(--amber);
+    border-radius:12px; padding:20px 24px;
+  }
+  .next h2{color:#b45309;} .next h2 .dot{background:var(--amber);}
+  .next ol{margin:6px 0 0; padding-left:20px;}
+  .next li{margin:7px 0; font-size:14px;}
+  .next .goal{margin-top:14px; padding-top:14px; border-top:1px dashed #fcd34d;
+    font-size:13.5px; color:#92400e;}
+
+  /* Tech reference */
+  .tech{display:grid; grid-template-columns:1fr 1fr; gap:10px 22px;}
+  .tech .row{font-size:13.5px; padding:6px 0; border-bottom:1px dashed var(--border);}
+  .tech .row b{color:var(--muted); font-weight:700; font-size:11px; text-transform:uppercase;
+    letter-spacing:.5px; display:block;}
+  .tech code{background:#f1f5f9; padding:2px 7px; border-radius:5px; font-size:12.5px;}
+  .tech .rule{grid-column:1 / -1; background:#fef2f2; border:1px solid #fecaca; border-radius:8px;
+    padding:9px 13px; font-size:13px; color:#991b1b; border-bottom:none;}
+
+  footer{margin-top:34px; text-align:center; color:var(--muted); font-size:12px; line-height:1.7;}
+
+  @media(max-width:680px){
+    .cols{grid-template-columns:1fr;}
+    .tech{grid-template-columns:1fr;}
+    .header h1{font-size:26px;}
+    .badge.date{margin-left:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1. Header -->
+  <div class="header">
+    <h1>
+      <span class="lock">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="10" width="16" height="11" rx="2.5" stroke="#5eead4" stroke-width="1.8"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#5eead4" stroke-width="1.8"/>
+          <circle cx="12" cy="15" r="1.6" fill="#f59e0b"/>
+        </svg>
+      </span>
+      facturel
+    </h1>
+    <p class="tagline">Local bill management — privacy-first, no cloud, no banking connections</p>
+    <div class="badges">
+      <span class="badge teal">Electron + React · Mac + Windows</span>
+      <span class="badge grey">Personal Project — No Deadline</span>
+      <span class="badge date">2026-06-11</span>
+    </div>
+  </div>
+
+  <!-- 2. Snapshot pills -->
+  <div class="pills">
+    <div class="pill"><span class="k">Stack</span><span class="v">Electron + React + SQLite</span></div>
+    <div class="pill"><span class="k">DB Driver</span><span class="v">better-sqlite3</span></div>
+    <div class="pill"><span class="k">Styling</span><span class="v">Tailwind CSS</span></div>
+    <div class="pill"><span class="k">Version</span><span class="v">1.0.0</span></div>
+    <div class="pill"><span class="k">Storage</span><span class="v">Local SQLite — no cloud</span></div>
+    <div class="pill"><span class="k">Priority</span><span class="v">Personal — low priority</span></div>
+    <div class="pill"><span class="k">Last code change</span><span class="v">2025-12-04 (initial commit)</span></div>
+  </div>
+
+  <!-- 3. Current Truth -->
+  <section>
+    <h2><span class="dot"></span>Current Truth</h2>
+    <div class="card">
+      <p>Facturel is a local Electron app for tracking bills and payment history with no cloud connectivity, no banking API, and no login. The codebase is a <strong>scaffold from December 2025</strong> — it has the full intended shape (an <code>App.js</code> shell, a <code>BillContext</code> for state, a <code>database.js</code> SQLite manager, Electron <code>main.js</code>/<code>preload.js</code>, and five UI components: Dashboard, BillForm, BillDetails, PaymentForm, Sidebar) but none of it has been touched since the initial commit.</p>
+      <p>Every commit since December has been <strong>tooling-only</strong>: an Electron bump (27 → 35.7.5 via Dependabot), CI / Claude GitHub Actions workflows, README edits, and June checkpoint commits. <em>No feature work has landed in <code>src/</code> in over six months.</em></p>
+      <p>The clearest spec for what the app must do is the <strong>March 2026 diary</strong>, which documents the real bill-paying workflow using <strong>Chronicle Pro</strong>: open the app, review each active bill's last payment, click through to the payee site, pay it, then log date/amount/notes. That six-step loop is the bar facturel needs to clear — and currently does not.</p>
+    </div>
+  </section>
+
+  <!-- 4. What It Does -->
+  <section>
+    <h2><span class="dot"></span>What It Does <span class="muted" style="font-size:13px;font-weight:400;">(designed capability)</span></h2>
+    <div class="card">
+      <p>Local-only bill management: add payees with name, logo, due date, payment URL and notes; log payments with amount, date and notes; and keep an editable payment history. <strong>No cloud, no banking integration, no account</strong> — all data lives in a SQLite database in the user's app data directory. It supports recurring billing (monthly, quarterly, yearly) with automatic next-due tracking, a user-defined tagging system, bill archiving/reactivation, payment statistics (highest / lowest / average, year-over-year totals), and CSV export. The target user mirrors a <strong>Chronicle Pro</strong> user who wants the same visual simplicity but full local control. Ships cross-platform on Mac and Windows via Electron.</p>
+    </div>
+  </section>
+
+  <!-- 5. Reference Workflow -->
+  <section>
+    <h2><span class="dot"></span>The Reference Workflow <span class="muted" style="font-size:13px;font-weight:400;">(from the March 2026 diary)</span></h2>
+    <div class="card">
+      <p class="muted" style="font-size:13.5px;margin-bottom:14px;">The bill-paying loop this app exists to replace — documented while paying Amex &amp; CIBC bills in Chronicle Pro:</p>
+      <ol class="steps">
+        <li>Open app → see the list of <strong>active bills</strong></li>
+        <li>For each bill, review the <strong>last payment</strong> date and amount</li>
+        <li>Click through to the <strong>payee website</strong> (payment URL)</li>
+        <li>Pay the bill</li>
+        <li>Log the payment: <strong>date + amount + notes</strong></li>
+        <li>Repeat for all bills</li>
+      </ol>
+      <div class="alert">UX target: <strong>Chronicle Pro</strong> — visual simplicity and an at-a-glance active-items list. The PRD names the same "Chronicle" UI as its visual inspiration.</div>
+    </div>
+  </section>
+
+  <!-- 6. Exists vs Needed -->
+  <section>
+    <h2><span class="dot"></span>What Exists vs. What's Needed</h2>
+    <div class="cols">
+      <div class="col exists">
+        <h3>✓ In the codebase</h3>
+        <ul>
+          <li><code>Dashboard.js</code> — main bill-list view <span class="tag scaffold">scaffold</span><br><span class="d">Intended: active bills with next due dates</span></li>
+          <li><code>BillForm.js</code> — add / edit bill form <span class="tag scaffold">scaffold</span><br><span class="d">Payee name, due date, URL, notes, tags</span></li>
+          <li><code>BillDetails.js</code> — detail + payment history <span class="tag scaffold">scaffold</span></li>
+          <li><code>PaymentForm.js</code> — log / edit a payment <span class="tag scaffold">scaffold</span></li>
+          <li><code>Sidebar.js</code> — navigation <span class="tag scaffold">scaffold</span></li>
+          <li><code>context/BillContext.js</code> — global state <span class="tag scaffold">scaffold</span></li>
+          <li><code>database.js</code> — SQLite manager <span class="tag scaffold">scaffold</span></li>
+          <li><code>main.js</code> / <code>preload.js</code> — Electron shell</li>
+        </ul>
+      </div>
+      <div class="col missing">
+        <h3>◷ Still needed</h3>
+        <ul>
+          <li>Bill/payee management <strong>with logo upload</strong></li>
+          <li>Recurring billing <strong>due-date calculation</strong></li>
+          <li>User-defined <strong>tagging system</strong></li>
+          <li>Bill <strong>archiving / reactivation</strong></li>
+          <li><strong>Payment statistics</strong> &amp; yearly summaries</li>
+          <li><strong>CSV export</strong></li>
+          <li><strong>Payee URL quick-launch</strong> — the "click through to website" step</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">All component files are present but <strong>unverified</strong> — they date to the initial commit and have had no code changes since. Treat them as scaffold until the app is run and each is confirmed to render and persist data.</div>
+  </section>
+
+  <!-- 7. Backlog -->
+  <section>
+    <h2><span class="dot"></span>Known Gaps / Top 5 Backlog</h2>
+    <ol class="backlog">
+      <li class="top"><strong>Payee URL quick-launch</strong>
+        <span class="why">The core workflow step — without "click through to the payee site," the app doesn't replace Chronicle.</span></li>
+      <li><strong>Recurring due-date calculation</strong>
+        <span class="why">So the bill list can show what's due soon and flag overdue items.</span></li>
+      <li><strong>Payment logging that persists across restarts</strong>
+        <span class="why">Wire PaymentForm → SQLite and verify data survives an app restart.</span></li>
+      <li><strong>Bill list sorted by due date / overdue status</strong>
+        <span class="why">Dashboard needs this ordering to be useful at a glance.</span></li>
+      <li><strong>CSV export</strong>
+        <span class="why">So data isn't trapped if the user wants to switch tools or back up.</span></li>
+    </ol>
+  </section>
+
+  <!-- 8. Priority & Context -->
+  <section>
+    <h2><span class="dot"></span>Priority &amp; Context</h2>
+    <div class="card">
+      <p>Personal project with <strong>no deadline</strong>, routinely bumped by revenue work (conforma, the SKYideas concepts). The actual bill tracking still happens in <strong>Chronicle Pro</strong> — documented in the March 2026 diary — so there's no daily pressure to finish facturel. The gap is exactly that: facturel doesn't yet replace Chronicle, and the trigger to actually adopt it would be reaching workflow parity on the six-step loop. The standing value is learning — hands-on <strong>Electron + React desktop development</strong>. It sits <strong>lower priority than WhackFun</strong> (which at least has a clear gaming audience); facturel is pure personal utility.</p>
+    </div>
+  </section>
+
+  <!-- 9. Next Session -->
+  <section>
+    <div class="next">
+      <h2><span class="dot"></span>Next Session — What to Do First</h2>
+      <p style="margin:0 0 4px;font-weight:600;color:#92400e;">Wire up the core workflow end-to-end:</p>
+      <ol>
+        <li>Confirm the app launches (<code>npm run dev</code>) and the basic scaffold renders</li>
+        <li>Check that the SQLite database initializes and <strong>persists across restarts</strong></li>
+        <li>Add a <strong>payee URL field</strong> to BillForm (if missing) — the most-used feature</li>
+        <li>Wire Dashboard to show bills <strong>sorted by next due date</strong></li>
+        <li>Confirm PaymentForm <strong>saves to SQLite</strong> and BillDetails shows the history</li>
+      </ol>
+      <div class="goal">🎯 <strong>Goal:</strong> open the app, see a bill, click its URL, pay it, and log the payment — the Chronicle workflow from the March 2026 diary — without leaving facturel.</div>
+    </div>
+  </section>
+
+  <!-- 10. Tech Reference -->
+  <section>
+    <h2><span class="dot"></span>Tech Reference</h2>
+    <div class="card">
+      <div class="tech">
+        <div class="row"><b>Dev</b><code>npm run dev</code> — React + Electron, hot reload</div>
+        <div class="row"><b>Build Mac</b><code>npm run build-mac</code> → <code>.dmg</code></div>
+        <div class="row"><b>Build Win</b><code>npm run build-win</code> → <code>.exe</code></div>
+        <div class="row"><b>Test</b><code>npm run test</code></div>
+        <div class="row"><b>Lint</b><code>npm run lint</code></div>
+        <div class="row"><b>Database</b>SQLite via <code>better-sqlite3</code> — user's app data dir</div>
+        <div class="rule">🔒 <strong>Key rule:</strong> never implement features that send data externally — all data stays local.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Generated 2026-06-11 · facturel · Personal Electron app<br>
+    derived from README.md, CLAUDE.md, PRD-01-base, project/diary, and git log
+  </footer>
+
+</div>
+</body>
+</html>
