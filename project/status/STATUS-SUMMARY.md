@@ -4,6 +4,6 @@ tagline: A privacy-first local Electron app for tracking bills and payment histo
 group: Personal
 profile: Personal Project
 priority: 9
-status: Codebase is a Dec 2025 scaffold (five UI components, SQLite manager, Electron shell) with no feature work in src/ since; every commit since has been tooling-only, and it does not yet replace the Chronicle Pro workflow it's meant to.
-generated: 2026-06-11
+status: Paused — src/ untouched since the Dec 2025 initial commit (9 months) and never verified running; payee-URL launch likely broken (window.open, no shell.openExternal), so it still can't replace the Chronicle Pro workflow.
+generated: 2026-09-17
 ---
