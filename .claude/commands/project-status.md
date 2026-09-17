@@ -164,3 +164,25 @@ The goal: be able to open the app, see a bill, click its URL, pay it, and log th
 - The March 2026 diary Chronicle workflow is the clearest spec for what the app needs to do — surface it
 - After writing the file, confirm the path and list the sections included
 - Tone: honest and practical — this is a personal utility app, not a product
+
+## Also write STATUS-SUMMARY.md
+
+After writing the HTML file, write (or overwrite) a summary file at `project/status/STATUS-SUMMARY.md` (create the directory if it doesn't exist).
+
+Use this exact format — YAML frontmatter only, no markdown body:
+
+```
+---
+name: facturel
+tagline: <one sentence — what this project is, derived from the files you just read>
+group: Personal
+profile: Personal Project
+priority: 9
+status: <one sentence — the most important thing about current state right now>
+generated: <today's date YYYY-MM-DD>
+---
+```
+
+- `tagline`: purpose of the project — stable, changes rarely
+- `status`: current state — something that could change next week (active work, priority changes, next session plan)
+- Overwrite every run — no date suffix, always one file
