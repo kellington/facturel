@@ -1,10 +1,12 @@
 # State
 
-*Last updated: 2026-06-08*
+*Last updated: 2026-10-06*
 
 ## Summary
 
 Paused. Local-first desktop bill management app built with Electron + React + SQLite. Privacy-focused (all data stays local). Recent commits have been tooling and CI only — no active feature work. Not a current priority.
+
+2026-10-06: status refresh only (project/status/status-2026-10-06.html). src/ still untouched since 2025-12-04; app still never verified running. Payee URL uses `window.open` (BillDetails.js:40) — likely opens an Electron window, not the browser.
 
 ## What's working
 
@@ -22,6 +24,11 @@ Nothing active.
 - Feature-incomplete relative to what a daily-use bill tracker would need
 - UX needs polish
 - No export or backup functionality
+
+## Open questions
+
+- PROJECT.md, PLAN.md, TASKS.md, DECISIONS.md are unfilled templates (untracked). Fill at resume or drop if staying paused.
+- Resume vs stay paused is Rob's call (in STATUS-SUMMARY questions_for_rob).
 
 ## Next actions (when resumed)
 

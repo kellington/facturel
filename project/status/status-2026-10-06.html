@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>facturel status</title>
+<style>
+:root {
+  --slate: #1e293b; --slate-2: #334155; --muted: #64748b; --line: #e5e7eb;
+  --bg: #f9fafb; --card: #ffffff;
+  --teal: #0d9488; --teal-soft: #f0fdfa;
+  --amber: #d97706; --amber-soft: #fffbeb;
+  --green: #16a34a; --green-soft: #f0fdf4;
+  --red: #dc2626; --red-soft: #fef2f2;
+  --grey: #64748b; --grey-soft: #f1f5f9;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--slate);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+header { background: var(--slate); color: #fff; padding: 28px 16px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+header .wrap { padding: 0; }
+.head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 30px; letter-spacing: -0.02em; }
+h1 span { color: var(--teal); }
+.tagline { margin: 4px 0 12px; color: #cbd5e1; }
+.badge { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 999px; margin: 0 6px 6px 0; font-weight: 600; }
+.b-teal { background: var(--teal); color: #fff; }
+.b-grey { background: #475569; color: #e2e8f0; }
+.b-amber { background: var(--amber); color: #fff; }
+.date { color: #cbd5e1; font-size: 13px; text-align: right; }
+.date strong { display: block; color: #fff; font-size: 18px; }
+main { padding: 24px 0 8px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 13px; }
+.pill b { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.05); padding: 18px 20px; margin-bottom: 16px; }
+h2 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+p { margin: 0 0 8px; }
+code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: #f1f5f9; padding: 1px 5px; border-radius: 4px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+ul.clean { list-style: none; padding: 0; margin: 0; }
+ul.clean li { padding: 7px 0; border-top: 1px solid #f1f5f9; font-size: 14px; }
+ul.clean li:first-child { border-top: 0; }
+.tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; margin-left: 4px; vertical-align: 1px; white-space: nowrap; }
+.t-green { background: var(--green-soft); color: var(--green); }
+.t-amber { background: var(--amber-soft); color: #b45309; }
+.t-red { background: var(--red-soft); color: var(--red); }
+.t-grey { background: var(--grey-soft); color: var(--slate-2); }
+.src { font-size: 12px; color: var(--muted); margin-top: 10px; }
+.alert { background: var(--amber-soft); border: 1px solid #fde68a; border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 7px 8px; border-top: 1px solid #f1f5f9; vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-top: 0; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+.d-green { background: var(--green); } .d-amber { background: var(--amber); } .d-red { background: var(--red); } .d-grey { background: var(--grey); }
+ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+ol.steps li { counter-increment: s; border-radius: 8px; padding: 10px 10px 10px 40px; position: relative; font-size: 13px; }
+ol.steps li::before { content: counter(s); position: absolute; left: 10px; top: 10px; width: 22px; height: 22px; border-radius: 50%;
+  color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; background: var(--slate-2); }
+ol.steps li.s-amber { background: var(--amber-soft); } ol.steps li.s-red { background: var(--red-soft); }
+ol.backlog { padding: 0; margin: 0; list-style: none; counter-reset: b; }
+ol.backlog li { counter-increment: b; padding: 10px 12px 10px 44px; position: relative; border-radius: 8px; margin-bottom: 6px; font-size: 14px; background: var(--grey-soft); }
+ol.backlog li::before { content: counter(b); position: absolute; left: 14px; top: 10px; font-weight: 800; color: var(--muted); }
+ol.backlog li.top { background: var(--red-soft); border: 1px solid #fecaca; }
+.next { border-left: 4px solid var(--teal); }
+.next ol { margin: 8px 0 10px; padding-left: 20px; }
+.ai { display: flex; align-items: center; gap: 16px; }
+.ai svg { width: 64px; height: 59px; flex: none; }
+a { color: var(--teal); }
+.empty { color: var(--muted); font-style: italic; }
+footer { text-align: center; color: var(--muted); font-size: 12px; padding: 12px 16px 32px; }
+@media (max-width: 760px) {
+  .grid2 { grid-template-columns: 1fr; }
+  ol.steps { grid-template-columns: 1fr; }
+  .date { text-align: left; }
+  table { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head-row">
+    <div>
+      <h1>factur<span>el</span></h1>
+      <p class="tagline">Local bill management — privacy-first, no cloud, no banking connections</p>
+      <span class="badge b-grey">Paused (derived)</span>
+      <span class="badge b-teal">Personal Project · #14</span>
+      <span class="badge b-grey">Electron + React · Mac + Windows</span>
+      <span class="badge b-amber">Dormant — src/ untouched 306 days</span>
+    </div>
+    <div class="date">Status as of<strong>2026-10-06</strong></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="card ai">
+  <svg viewBox="0 0 360 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI plus Process">
+    <path d="M 238.4 44.7 A 117 117 0 1 0 274.3 195.3" fill="none" stroke="#16263d" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="238.4" cy="44.7" r="8" fill="#16263d"/><circle cx="274.3" cy="195.3" r="8" fill="#16263d"/>
+    <text x="96" y="128" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#2e6ca4">AI</text>
+    <text x="186" y="128" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#1c7c74">+</text>
+    <text x="92" y="182" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="1.5" fill="#16263d">PROCESS</text>
+    <circle cx="122" cy="212" r="4.5" fill="#1c7c74"/><circle cx="140" cy="212" r="4.5" fill="#1c7c74"/><circle cx="158" cy="212" r="4.5" fill="#1c7c74"/><circle cx="176" cy="212" r="4.5" fill="#1c7c74"/>
+    <g stroke="#3a8a3f" stroke-width="5" stroke-linecap="round" fill="none"><line x1="194" y1="212" x2="232" y2="212"/><polyline points="220,200 234,212 220,224"/></g>
+  </svg>
+  <div><strong>AI+PROCESS</strong> — how this project uses Claude Code. Last update 2026-06-11.<br><a href="../../AI+PROCESS.html">View page →</a></div>
+</div>
+
+<div class="pills">
+  <span class="pill"><b>Stack</b>Electron 35 + React 18 + SQLite (better-sqlite3 11)</span>
+  <span class="pill"><b>Hosting</b>Local desktop app — no server</span>
+  <span class="pill"><b>Milestone</b>Not yet documented</span>
+  <span class="pill"><b>Tasks</b>0 documented (TASKS.md is the blank template)</span>
+  <span class="pill"><b>Version</b>1.0.0</span>
+  <span class="pill"><b>src/</b>~2,377 lines · last change 2025-12-04</span>
+  <span class="pill"><b>Tests</b>0 (tests/ dirs empty)</span>
+</div>
+
+<div class="card">
+  <h2>Purpose</h2>
+  <p>A local-only Electron app to track recurring bills and payment history with no cloud, banking link or login — everything in a SQLite file on the user's machine.</p>
+  <p class="src">Source: README.md, docs/PRDs/PRD-01-base.md — PROJECT.md is the unfilled template (Not yet documented)</p>
+</div>
+
+<div class="card">
+  <h2>Since last status (2026-09-17)</h2>
+  <p><strong>Nothing changed in the product.</strong> No new decisions, no milestone change, no Now-list change, no target change. src/ still untouched since 2025-12-04.</p>
+  <p>Tooling only: the per-repo <code>/project-status</code> command was moved to the global skill (commit <code>ba91aee</code>, 2026-10-06); protocol templates (PROJECT/PLAN/TASKS/DECISIONS.md) sit untracked and unfilled.</p>
+  <p class="src">Source: git log, status-2026-09-17.html, git status</p>
+</div>
+
+<div class="card">
+  <h2>Current milestone</h2>
+  <p class="empty">Not yet documented — PLAN.md is the blank template. The de-facto bar (derived) is the Chronicle reference workflow below.</p>
+  <p class="src">Source: PLAN.md</p>
+</div>
+
+<div class="card">
+  <h2>Working / in progress / known issues</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Claimed working</strong> (STATE.md, 2026-06-08 — not re-verified)</p>
+      <ul class="clean">
+        <li>Electron + React + SQLite stack set up <span class="tag t-amber">unverified</span></li>
+        <li>Basic bill management <span class="tag t-amber">unverified</span></li>
+        <li>CI pipeline (build, Claude review workflows) <span class="tag t-green">present</span></li>
+        <li>Local-only architecture <span class="tag t-green">by design</span></li>
+      </ul>
+      <p style="margin-top:10px"><strong>In progress:</strong> nothing active.</p>
+    </div>
+    <div>
+      <p><strong>Known gaps</strong></p>
+      <ul class="clean">
+        <li>Feature-incomplete for daily use</li>
+        <li>UX needs polish</li>
+        <li>No export/backup (STATE.md) — though <code>database.js</code> has a CSV path, unverified</li>
+        <li>Electron vs simpler approach still undecided</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">Source: STATE.md (last updated 2026-06-08)</p>
+</div>
+
+<div class="card">
+  <h2>Task board</h2>
+  <p class="empty">0 documented — TASKS.md holds only template placeholders in Now / Next / Later. The backlog below is derived.</p>
+  <p class="src">Source: TASKS.md</p>
+</div>
+
+<div class="card">
+  <h2>Platform</h2>
+  <p>Electron desktop app, Mac (.dmg, unsigned) + Windows (.exe via native CI runners). Not installed or in use — Chronicle Pro still pays the bills. <span class="tag t-amber">Dormant</span></p>
+  <p class="src">Source: README.md, diary-2026-03.md</p>
+</div>
+
+<div class="card">
+  <h2>Deadline</h2>
+  <p>None. Personal utility; low priority, bumped by revenue work.</p>
+  <p class="src">Source: STATE.md</p>
+</div>
+
+<div class="card">
+  <h2>Recent decisions</h2>
+  <p class="empty">0 documented — DECISIONS.md holds only the template example entry.</p>
+  <p class="src">Source: DECISIONS.md</p>
+</div>
+
+<!-- custom sections -->
+<div class="card">
+  <h2>Code reality</h2>
+  <p><code>src/</code>: App.js, database.js, index.js, main.js, preload.js, index.css, context/BillContext.js · <code>src/components/</code>: BillDetails, BillForm, Dashboard, PaymentForm, Sidebar.</p>
+  <p>Last <code>src/</code> commit: <code>3a337c9</code> Initial commit (2025-12-04). <strong>Every commit since is tooling or docs</strong> — Dependabot bumps, CI/Claude workflows, status pages, AI+PROCESS, the project-status migration.</p>
+  <p class="src">Source: ls src/ src/components/; git log -- src/</p>
+</div>
+
+<div class="card">
+  <h2>Reference workflow — exists vs missing</h2>
+  <p style="font-size:13px;color:var(--muted)">Spec: the 2026-03-27 Chronicle Pro routine.</p>
+  <ol class="steps">
+    <li class="s-amber">Open app → list of active bills <span class="tag t-amber">scaffold</span></li>
+    <li class="s-amber">Review last payment <span class="tag t-amber">scaffold</span></li>
+    <li class="s-red">Click payee URL <span class="tag t-red">likely broken</span></li>
+    <li class="s-amber">Pay (outside app)</li>
+    <li class="s-amber">Log date / amount / notes <span class="tag t-amber">unverified</span></li>
+  </ol>
+  <table style="margin-top:14px">
+    <tr><th>Key feature (CLAUDE.md)</th><th>Code</th><th>State</th></tr>
+    <tr><td>Bill/payee mgmt (name, due date, URL, notes)</td><td>BillForm, database.js</td><td><span class="tag t-amber">scaffold, unverified</span></td></tr>
+    <tr><td>Logo upload</td><td>schema/views only, no form field</td><td><span class="tag t-amber">partial</span></td></tr>
+    <tr><td>Recurring (monthly/quarterly/yearly)</td><td>next_due fields; roll-forward unclear</td><td><span class="tag t-amber">unverified</span></td></tr>
+    <tr><td>Payment logging</td><td>PaymentForm → IPC → SQLite</td><td><span class="tag t-amber">unverified</span></td></tr>
+    <tr><td>Tagging (multiple per bill)</td><td>tags + bill_tags tables</td><td><span class="tag t-amber">unverified</span></td></tr>
+    <tr><td>Archive / reactivate</td><td>archive only; no reactivate path found</td><td><span class="tag t-red">missing</span></td></tr>
+    <tr><td>Payment stats &amp; summaries</td><td>query in database.js</td><td><span class="tag t-amber">unverified</span></td></tr>
+    <tr><td>CSV export</td><td>Sidebar button + database.js</td><td><span class="tag t-amber">unverified</span></td></tr>
+    <tr><td>Payee URL opens system browser</td><td><code>window.open</code> in BillDetails.js:40; no <code>shell.openExternal</code></td><td><span class="tag t-red">likely broken</span></td></tr>
+  </table>
+  <p class="src">Source: diary-2026-03.md, CLAUDE.md, src/ (grep), carried from status-2026-09-17 — code unchanged since</p>
+</div>
+
+<div class="card">
+  <h2>Top 5 backlog — ranked by what blocks real use (derived)</h2>
+  <ol class="backlog">
+    <li class="top"><strong>Payee URL launch</strong> — route <code>payment_url</code> through <code>shell.openExternal</code> via preload/IPC. Core workflow step.</li>
+    <li><strong>Prove it runs</strong> — <code>npm run dev</code>; better-sqlite3 may need a rebuild for Electron 35.</li>
+    <li><strong>Payment logging persists</strong> — save, restart, confirm history in BillDetails.</li>
+    <li><strong>Due-first dashboard</strong> — replace <code>ORDER BY name</code> with next_due ordering + overdue flag; roll next_due forward on payment.</li>
+    <li><strong>CSV export round-trip</strong> — so data is never trapped.</li>
+  </ol>
+  <p class="src">Source: derived from src/, STATE.md, diary-2026-03.md</p>
+</div>
+
+<div class="card">
+  <h2>Risks</h2>
+  <table>
+    <tr><th>Risk</th><th>Severity</th><th>Next move</th></tr>
+    <tr><td>App never verified running; may not start after Electron 35 bump</td><td><span class="dot d-red"></span>High</td><td>Run <code>npm run dev</code> at next session; rebuild better-sqlite3 if needed</td></tr>
+    <tr><td>Payee URL opens an Electron window, not the browser — blocks the core workflow</td><td><span class="dot d-red"></span>High</td><td>Switch to <code>shell.openExternal</code></td></tr>
+    <tr><td>Protocol files are blank templates — no plan, tasks or decisions to steer by</td><td><span class="dot d-amber"></span>Medium</td><td>Fill PROJECT/PLAN/TASKS at resume, or delete them if staying paused</td></tr>
+    <tr><td>Electron vs simpler stack undecided</td><td><span class="dot d-grey"></span>Deferred</td><td>Decide after the run-check; log in DECISIONS.md</td></tr>
+  </table>
+  <p class="src">Source: STATE.md, src/ (derived)</p>
+</div>
+
+<div class="card next">
+  <h2>Next session</h2>
+  <ol>
+    <li>Run <code>npm run dev</code>; record whether it launches and the DB initialises.</li>
+    <li>Fix payee URL launch (<code>shell.openExternal</code>).</li>
+    <li>Add one real bill, log a payment, restart, confirm it survived.</li>
+    <li>Write PLAN.md's first milestone: "the Chronicle workflow end-to-end".</li>
+  </ol>
+  <p class="src">Source: derived; STATE.md "Next actions (when resumed)"</p>
+</div>
+
+<div class="card">
+  <h2>Source freshness</h2>
+  <p>Newest source: CLAUDE.md, 2026-10-06 (0 days) <span class="dot d-green"></span> — but that edit was tooling. Newest product change (<code>src/</code>): 2025-12-04, 306 days <span class="dot d-red"></span>.</p>
+  <table>
+    <tr><th>Source</th><th>Last change</th><th></th></tr>
+    <tr><td>CLAUDE.md</td><td>2026-10-06</td><td><span class="dot d-green"></span>current</td></tr>
+    <tr><td>project/diary/diary-2026-10.md</td><td>2026-10-06 (file mtime, untracked)</td><td><span class="dot d-green"></span>current</td></tr>
+    <tr><td>TASKS.md</td><td>2026-08-24 (file mtime, untracked, template)</td><td><span class="dot d-amber"></span>43 days behind</td></tr>
+    <tr><td>STATE.md</td><td>2026-06-11</td><td><span class="dot d-red"></span>117 days behind</td></tr>
+    <tr><td>PROJECT.md / PLAN.md / DECISIONS.md</td><td>2026-04-20 (file mtime, untracked, template)</td><td><span class="dot d-red"></span>169 days behind</td></tr>
+    <tr><td>README.md</td><td>2025-12-04</td><td><span class="dot d-red"></span>306 days behind</td></tr>
+    <tr><td>docs/PRDs/PRD-01-base.md</td><td>2025-12-04</td><td><span class="dot d-red"></span>306 days behind</td></tr>
+  </table>
+  <p class="src">Source: git log -1 per file; file mtime where untracked</p>
+</div>
+
+</main>
+<footer>
+  Generated 2026-10-06 · derived from PROJECT.md, PLAN.md, STATE.md, TASKS.md, DECISIONS.md, CLAUDE.md, README.md, docs/PRDs/PRD-01-base.md, project/diary/ (2026-03, 2026-10), status-2026-09-17.html, AI+PROCESS.html, git log, src/<br>
+  Colours: red = blocks use, high-severity security, or no owner/next action · amber = known gap with an accepted next action · green = shipped and recently verified · grey = deliberately deferred.
+</footer>
+</body>
+</html>
