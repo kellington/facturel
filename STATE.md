@@ -27,7 +27,7 @@ Nothing active.
 
 ## Open questions
 
-- PROJECT.md, PLAN.md, TASKS.md, DECISIONS.md are unfilled templates (untracked). Fill at resume or drop if staying paused.
+- PROJECT/PLAN/DECISIONS.md filled 2026-10-06 from PRD, diary, git history; earlier DECISIONS entries are reconstructed — Rob to confirm.
 - Resume vs stay paused is Rob's call (in STATUS-SUMMARY questions_for_rob).
 
 ## Next actions (when resumed)
