@@ -69,3 +69,29 @@ scripts/               # Build and utility scripts
 - Leverage Tailwind's utility classes for styling
 - Implement proper error handling for database operations
 - Ensure data persistence across app restarts
+
+## Project status
+
+Config for the global `/project-status` skill (`~/.claude/skills/project-status/`).
+Metadata (group, profile, priority) comes from the workspace README table.
+
+```yaml
+extra_sources:
+  - README.md
+  - docs/PRDs/PRD-01-base.md
+palette: { primary: "#1e293b", accent: "#0d9488" }
+custom_sections: |
+  - Code reality: `ls src/ src/components/`; last code change `git log --oneline --no-merges -- src/ | head -5`. If recent commits are tooling-only, say so.
+  - Reference workflow from the March 2026 diary (open → review bills → click payee URL → pay → log payment) as the spec; exists-vs-missing columns against CLAUDE.md "Key Features to Implement".
+  - Top-5 backlog ranked by what blocks real use.
+```
+
+## Project Reference
+
+- **Dev:** `npm run dev` (React + Electron with hot reload)
+- **Build Mac:** `npm run build-mac` → `.dmg`
+- **Build Win:** `npm run build-win` → `.exe`
+- **Test:** `npm run test`
+- **Lint:** `npm run lint`
+- **DB:** SQLite via `better-sqlite3`, stored in the user's app data directory
+- **Key rule:** never implement features that send data externally (see "Important Notes")
